@@ -1,0 +1,38 @@
+SELECT
+    s.student_id,
+    s.name AS student_name,
+    c.id AS course_id,
+    c.name AS course_name
+FROM students s
+JOIN enrollments e
+ON s.student_id = e.student_id
+JOIN courses c
+ON e.course_id = c.id
+ORDER BY c.id;
+
+
+SELECT
+    c.name AS course_name,
+    AVG((s.math_score + s.science_score + s.english_score) / 3.0) AS average_marks
+FROM students s
+JOIN enrollments e
+ON s.student_id = e.student_id
+JOIN courses c
+ON e.course_id = c.id
+GROUP BY c.name;
+
+
+SELECT
+    student_id,
+    name,
+    (math_score + science_score + english_score) AS total_marks
+FROM students
+ORDER BY total_marks DESC
+LIMIT 3;
+
+
+SELECT COUNT(*) AS failed_students
+FROM students
+WHERE math_score < 40
+   OR science_score < 40
+   OR english_score < 40;
